@@ -1,0 +1,273 @@
+fun initmpvv2(){
+        mpv = MPV.INSTANCE
+        handle=mpv.mpv_create()
+
+        val glProfile = GLProfile.getMaxProgrammableCore(true)
+        val glCapabilities = GLCapabilities(glProfile)
+        glJPanel = GLJPanel(glCapabilities)
+//        glCanvas = GLCanvas(glCapabilities)
+        var head_render_param:mpv_render_param?
+        var fbo_settings:mpv_opengl_fbo
+
+        val glEventListener=object:GLEventListener{
+            private var rotateT = 0.0f
+            val one = IntByReference(1)
+            val zero = IntByReference(0)
+            var glContext:GLContext? = null
+            val getProcAddress:get_proc_address= object:get_proc_address {
+                override fun callback(handle: Pointer?, name: String?): Pointer? {
+                    val proc_address:Pointer
+                    makeContentCurrent()
+                    val fromWGL = WGL.wglGetProcAddress(name)
+                    proc_address = if(fromWGL==0L){
+                        val function = opengllib.getFunction(name)
+                        val pointer  =Pointer.nativeValue(function)
+                        function
+                    }else{
+                        Pointer.createConstant(fromWGL)
+                    }
+                    return proc_address
+                }
+            }
+
+            override fun init(drawable: GLAutoDrawable) {
+//                currentContext =  WGL.wglGetCurrentContext()
+                glContext= GLContext.getCurrent()
+                val gl_init_params = mpv_opengl_init_params().apply {
+                    this.get_proc_address = getProcAddress
+                    this.get_proc_address_ctx = null
+                    this.extra_exts = null
+                    this.write()
+                }
+
+                val MPV_RENDER_API_TYPE_OPENGL_STR = "opengl"
+                val MPV_RENDER_API_TYPE_OPENGL: Pointer =
+                    Memory((MPV_RENDER_API_TYPE_OPENGL_STR.toByteArray().size + 1).toLong())
+                MPV_RENDER_API_TYPE_OPENGL.setString(0, MPV_RENDER_API_TYPE_OPENGL_STR)
+
+                val head_init_param = mpv_render_param()
+                val init_params = head_init_param.toArray(3) as Array<mpv_render_param>
+                init_params.apply {
+                    this[0].type = mpv_render_param_type.MPV_RENDER_PARAM_API_TYPE.id
+                    this[0].data = MPV_RENDER_API_TYPE_OPENGL
+                    this[0].write()
+                    this[1].type = mpv_render_param_type.MPV_RENDER_PARAM_OPENGL_INIT_PARAMS.id
+                    this[1].data = gl_init_params.pointer
+                    this[1].write()
+//                    this[2].type = mpv_render_param_type.MPV_RENDER_PARAM_ADVANCED_CONTROL.id
+//                    this[2].data = one.pointer
+//                    this[2].write()
+                    this[2].type = mpv_render_param_type.MPV_RENDER_PARAM_INVALID.id
+                    this[2].data = null
+                    this[2].write()
+                }
+
+                mpv_gl = PointerByReference()
+                mpv_gl.value = null
+
+
+                mpv.mpv_render_context_create(mpv_gl, handle, head_init_param).checkError()
+
+                fbo_settings = mpv_opengl_fbo().apply {
+                    this.fbo = 1//GLContext.getCurrent().defaultReadFramebuffer
+                    this.w = 100
+                    this.h = 100
+                    this.internal_format = GL_RGBA8
+                    this.write()
+                }
+
+                head_render_param = mpv_render_param()
+                val render_params = (head_render_param!!.toArray(3) as Array<mpv_render_param>).apply {
+                    this[0].type = mpv_render_param_type.MPV_RENDER_PARAM_OPENGL_FBO.id
+                    this[0].data = fbo_settings.pointer
+                    this[0].write()
+                    this[1].type = mpv_render_param_type.MPV_RENDER_PARAM_FLIP_Y.id
+                    this[1].data = one.pointer
+                    this[1].write()
+//                    this[2].type = mpv_render_param_type.MPV_RENDER_PARAM_BLOCK_FOR_TARGET_TIME.id
+//                    this[2].data = zero.pointer
+//                    this[2].write()
+                    this[2].type = mpv_render_param_type.MPV_RENDER_PARAM_INVALID.id
+                    this[2].data = null
+                    this[2].write()
+                }
+//                println(GLContext.getCurrent())
+                val on_mpv_redraw:on_render_update=object:on_render_update{
+                    override fun callback(d: Pointer?) {
+                        println("Need update frame")
+                        updateFrame.value=true
+                        Thread(Runnable {
+                            println("updating")
+
+
+                        })//.start()
+                        drawable.invoke(true,GLRunnable {
+//                            println(GLContext.getCurrent().isCurrent)
+                            println(WGL.wglGetCurrentContext())
+                            mpv.mpv_render_context_render(mpv_gl.value, head_render_param).checkError()
+                            true
+                        })
+
+//                        makeContentCurrent()
+
+                        Platform.runLater {
+
+
+//                            drawable.swapBuffers()
+                        }
+                    }
+                }
+                val gl=drawable.gl.gL2
+                println(gl.glIsFramebuffer(1).toString()+"1")
+                println(gl.glIsFramebuffer(0).toString()+"bu0ffer")
+
+                gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+                gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
+                gl.glLoadIdentity();
+                gl.glTranslatef(0.0f, 0.0f, -5.0f);
+                gl.glBegin(GL2.GL_QUADS);
+                gl.glColor3f(0.0f, 1.0f, 1.0f);
+                gl.glVertex3f(-1.0f, 1.0f, 0.0f);
+                gl.glVertex3f( 1.0f, 1.0f, 0.0f);
+                gl.glVertex3f( 1.0f,-1.0f, 0.0f);
+                gl.glVertex3f(-1.0f,-1.0f, 0.0f);
+                gl.glEnd();
+
+                println(Pointer.nativeValue(mpv_gl.value))
+//                mpv.mpv_render_context_set_update_callback(mpv_gl.value, on_mpv_redraw, null);
+//                setMpvOptions()
+//                mpv.mpv_initialize(handle).checkError()
+//
+//                command("loadfile","https://kowvv.vizcloud.ink/simple/EqPFI_4QWADtjDlGha7rC5Qur1wW8rb7TgR7rqk+wYMnU94US2El/br/list.m3u8")
+//                println("Loaded")
+//                playPause()
+                isInitialised=true
+            }
+            private fun makeContentCurrent() {
+                try {
+                    while (glContext!!.makeCurrent() == GLContext.CONTEXT_NOT_CURRENT) {
+                        println("Context not yet current...")
+                        Thread.sleep(100)
+                    }
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun reshape(drawable: GLAutoDrawable, x: Int, y: Int, width: Int, height: Int) {}
+
+            override fun display(drawable: GLAutoDrawable) {
+                val gl = drawable.gl.gL4.gL2
+
+//                println(GLContext.getCurrent())
+//                println(WGL.wglGetCurrentContext())
+
+                gl.glClear(GL.GL_COLOR_BUFFER_BIT)
+                gl.glClear(GL.GL_DEPTH_BUFFER_BIT)
+
+                gl.glBegin(GL2.GL_QUADS)
+
+                gl.glColor3f(0.0f, 1.0f, 1.0f)
+                gl.glVertex3f(-1.0f, 1.0f, 0.0f)
+                gl.glVertex3f(1.0f, 1.0f, 0.0f)
+                gl.glVertex3f(1.0f, -1.0f, 0.0f)
+                gl.glVertex3f(-1.0f, -1.0f, 0.0f)
+                gl.glEnd()
+
+            }
+
+            override fun dispose(drawable: GLAutoDrawable?) {}
+
+        }
+        head_render_param=null
+//        val glWindow  = GLWindow.create(glCapabilities)
+//        setMpvOptions()
+
+        glJPanel.addGLEventListener(object :GLEventListener {
+            override fun init(drawable: GLAutoDrawable) {
+                println("init")
+                val gl = drawable.gl as GL2
+//
+                gl.glTranslatef(0.0f, 0.0f, -5.0f);
+                gl.glBegin(GL2.GL_QUADS);
+                gl.glColor3f(1.0f, 1.0f, 1.0f);
+                gl.glVertex3f(-1.0f, 1.0f, 0.0f);
+                gl.glVertex3f( 1.0f, 1.0f, 0.0f);
+                gl.glVertex3f( 1.0f,-1.0f, 0.0f);
+                gl.glVertex3f(-1.0f,-1.0f, 0.0f);
+                gl.glEnd();
+            }
+
+            override fun dispose(drawable: GLAutoDrawable) {
+
+            }
+
+            override fun display(drawable: GLAutoDrawable) {
+                val gl = drawable.gl as GL2
+                gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+                gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
+                gl.glLoadIdentity();
+                gl.glTranslatef(0.0f, 0.0f, -5.0f);
+                gl.glBegin(GL2.GL_QUADS);
+                gl.glColor3f(0.0f, 1.0f, 1.0f);
+                gl.glVertex3f(-1.0f, 1.0f, 0.0f);
+                gl.glVertex3f( 1.0f, 1.0f, 0.0f);
+                gl.glVertex3f( 1.0f,-1.0f, 0.0f);
+                gl.glVertex3f(-1.0f,-1.0f, 0.0f);
+                gl.glEnd();
+            }
+
+            override fun reshape(p0: GLAutoDrawable?, p1: Int, p2: Int, p3: Int, p4: Int) {
+            }
+
+        });
+
+        SwingUtilities.invokeLater {
+//            swingNode.content = JPanel(BorderLayout()).also{it.add(glCanvas);it.isVisible=true;it.background=java.awt.Color(1.0f,1.0f,1.0f)}
+            swingNode.content=glJPanel
+
+        }
+        val f =JFrame("lol")
+        f.contentPane.add(glJPanel)
+        f.isVisible=true
+//        mpvBorderPane.center=swingNode
+
+//        longByReference = LongByReference(glCanvas.handle)
+//        mpv.mpv_set_option(handle, "wid", MPV_FORMAT.INT64.id, longByReference.pointer).checkError()
+
+//        mpv.mpv_initialize(handle)
+
+//        command("loadfile","https://kowvv.vizcloud.ink/simple/EqPFI_4QWADtjDlGha7rC5Qur1wW8rb7TgR7rqk+wYMnU94US2El/br/list.m3u8")
+
+//        mpvBorderPane.center=newtCanvas
+
+//        updateFrame.addListener { _, _, newValue ->
+//            println("updating")
+//            if(newValue){
+//                mpv.mpv_render_context_render(mpv_gl.value, head_render_param).checkError()
+//            }
+//            updateFrame.value=false
+//        }
+//        val glJPanel=GLJPanel(glCapabilities)
+//        glJPanel.addGLEventListener(glEventListener)
+//        SwingUtilities.invokeLater {
+//            swingNode.content=glJPanel
+//        }
+//        glWindow.handle
+    }
+    lateinit var glJPanel:GLJPanel
+    lateinit var glContext:GLContext
+
+    fun destroy(){
+        if (isInitialised) return
+
+        mpv.mpv_render_context_free(mpv_gl.value);
+        mpv_gl.value = null;
+        mpv.mpv_terminate_destroy(handle);
+    }
+    lateinit var glCanvas:GLCanvas
+        lateinit var get_proc_address: get_proc_address
+        lateinit var mpv_gl:PointerByReference
+        val swingNode = SwingNode()
+        val opengllib=com.sun.jna.NativeLibrary.getInstance("opengl32")
+        val updateFrame = SimpleBooleanProperty(false)

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane prefHeight="796.0" prefWidth="1136.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.showstreamer.controllers.show.ShowInfoController">
+   <children>
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <StackPane fx:id="infoStackPane" alignment="TOP_LEFT" prefHeight="560.0" prefWidth="1136.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <ImageView fx:id="backgroundImageView" fitHeight="563.0" fitWidth="1136.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                  </ImageView>
+                  <HBox fx:id="stackInfoHBox" prefHeight="563.0" prefWidth="1102.0" spacing="50.0" StackPane.alignment="TOP_LEFT">
+                     <children>
+                        <ImageView fx:id="infoImageView" fitHeight="335.0" fitWidth="221.0" pickOnBounds="true" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="40.0" left="50.0" top="50.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="452.0" prefWidth="463.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="titleLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="57.0" prefWidth="478.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: rgba(255,255,255,0.3);" text="Empty..." textFill="WHITE" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Arial Rounded MT Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="478.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Button maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="214.0" style="-fx-background-color: rgb(202,233,98); -fx-background-radius: 10 10 10 10;" text="Watch now" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Arial Rounded MT Bold" size="17.0" />
+                                       </font>
+                                       <graphic>
+                                          <FontIcon iconLiteral="fas-play" />
+                                       </graphic></Button>
+                                    <ComboBox fx:id="listTypeComboBox" prefHeight="50.0" prefWidth="279.0" promptText="Add to list" style="-fx-background-radius: 10 10 10 10;" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="57.0" prefWidth="454.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label prefHeight="36.0" prefWidth="84.0" style="-fx-background-color: transparent;" text="Genres:" textFill="WHITE" HBox.hgrow="ALWAYS" />
+                                    <FlowPane fx:id="genresFlowPane" prefHeight="21.0" prefWidth="378.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets top="10.0" />
+                                       </HBox.margin>
+                                    </FlowPane>
+                                 </children>
+                              </HBox>
+                              <Label fx:id="descriptionLabel" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="389.0" prefWidth="568.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: rgba(255,255,255,0.3);" text="Empty..." textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Arial Rounded MT Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets top="50.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="563.0" prefWidth="320.0" style="-fx-background-color: rgba(255,255,255,0.3);" HBox.hgrow="ALWAYS">
+                           <children>
+                              <ListView fx:id="showInfoListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mouseTransparent="true" prefHeight="463.0" prefWidth="345.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets bottom="50.0" top="50.0" />
+                                 </VBox.margin>
+                              </ListView>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </StackPane>
+            <HBox prefHeight="258.0" prefWidth="1136.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <ListView fx:id="episodesListView" prefHeight="232.0" prefWidth="1136.0" style="-fx-background-color: white; -fx-background-radius: 10 10 10 10;" />
+                  <VBox fx:id="infoVBox" spacing="20.0" style="-fx-background-color: black;">
+                     <children>
+                        <ProgressBar fx:id="linkProgressBar" prefHeight="13.0" prefWidth="1117.0" progress="0.0" style="-fx-background-insets: 10 10 10 10;" />
+                        <HBox prefHeight="0.0" prefWidth="760.0" spacing="5.0">
+                           <children>
+                              <Spinner fx:id="episodeStartSpinner" editable="true" prefHeight="38.0" prefWidth="136.0" style="-fx-background-insets: 10 10 10 10;" HBox.hgrow="ALWAYS" />
+                              <Spinner fx:id="episodeEndSpinner" editable="true" prefHeight="40.0" prefWidth="136.0" style="-fx-background-radius: 10 10 10 10;" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="selectButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="136.0" style="-fx-background-radius: 10 10 10 10;" text="Select" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="selectAllButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="136.0" style="-fx-background-radius: 10 10 10 10;" text="Select All" HBox.hgrow="ALWAYS">
+                                 <graphic>
+                                    <FontIcon iconColor="WHITE" iconLiteral="mdmz-select_all" iconSize="20" wrappingWidth="17.0" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="deselectAllButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="136.0" style="-fx-background-radius: 10 10 10 10;" text="Deselect All" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="0.0" prefWidth="529.0">
+                           <children>
+                              <TextField fx:id="directoryTextField" prefHeight="28.0" prefWidth="330.0" promptText="Download Directory" style="-fx-background-radius: 10 10 10 10;" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="browseDirectoryButton" mnemonicParsing="false" prefHeight="28.0" prefWidth="110.0" style="-fx-background-radius: 10 10 10 10;" text="Browse" HBox.hgrow="ALWAYS">
+                                 <graphic>
+                                    <FontIcon iconColor="WHITE" iconLiteral="mdomz-open_in_browser" iconSize="20" wrappingWidth="17.0" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="openDirectoryButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 10 10 10 10;" text="Open" HBox.hgrow="ALWAYS">
+                                 <graphic>
+                                    <FontIcon iconColor="WHITE" iconLiteral="mdral-folder_open" iconSize="20" wrappingWidth="17.0" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="0.0" prefWidth="529.0">
+                           <children>
+                              <Button fx:id="mainDownloadButton" disable="true" mnemonicParsing="false" onAction="#onDownload" prefHeight="28.0" prefWidth="518.0" style="-fx-background-radius: 10 10 10 10;" text="Download" HBox.hgrow="ALWAYS">
+                                 <graphic>
+                                    <FontIcon iconColor="WHITE" iconLiteral="fas-download" iconSize="20" wrappingWidth="17.0" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="mainPlayButton" alignment="CENTER" disable="true" lineSpacing="20.0" mnemonicParsing="false" onAction="#onPlay" prefHeight="28.0" prefWidth="453.0" style="-fx-background-radius: 10 10 10 10;" text="Play" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="mainDownloadButton1" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDownload" prefHeight="28.0" prefWidth="518.0" style="-fx-background-radius: 10 10 10 10;" text="Download">
+                                 <graphic>
+                                    <FontIcon iconColor="WHITE" iconLiteral="fas-download" iconSize="20" wrappingWidth="17.0" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Button fx:id="addToWatchListButton" mnemonicParsing="false" onAction="#onAddToWatchList" prefHeight="0.0" prefWidth="272.0" style="-fx-background-radius: 10 10 10 10;" text="Add to Watch List">
+                                 <graphic>
+                                    <FontIcon iconColor="WHITE" iconLiteral="mdmz-playlist_add" iconSize="20" wrappingWidth="17.0" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

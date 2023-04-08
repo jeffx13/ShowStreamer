@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane fx:id="mainBorderPane" prefHeight="777.0" prefWidth="1060.0" style="-fx-background-color: rgba(0, 100, 100, 0.01);" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.showstreamer.controllers.MainController">
+   <left>
+      <VBox fx:id="leftVbox" prefHeight="820.0" prefWidth="32.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="homeButton" mnemonicParsing="false" onAction="#onChangePane" prefHeight="55.0" prefWidth="80.0">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fas-home" iconSize="30" />
+               </graphic>
+            </Button>
+            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onChangePane" prefHeight="55.0" prefWidth="80.0" VBox.vgrow="NEVER">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fas-search" iconSize="30" />
+               </graphic>
+            </Button>
+            <Button fx:id="infoBtn" mnemonicParsing="false" onAction="#onChangePane" prefHeight="52.0" prefWidth="80.0" VBox.vgrow="NEVER">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fas-info" iconSize="30" />
+               </graphic>
+            </Button>
+            <Button fx:id="mpvBtn" mnemonicParsing="false" onAction="#onChangePane" prefHeight="52.0" prefWidth="80.0" VBox.vgrow="NEVER">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fas-play-circle" iconSize="30" />
+               </graphic>
+            </Button>
+            <Button fx:id="downloadBtn" mnemonicParsing="false" onAction="#onChangePane" prefHeight="52.0" prefWidth="80.0" VBox.vgrow="NEVER">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="mdsal-cloud_download" iconSize="30" />
+               </graphic>
+            </Button>
+            <Button fx:id="watchListBtn" mnemonicParsing="false" onAction="#onChangePane" prefHeight="55.0" prefWidth="80.0" VBox.vgrow="NEVER">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="far-list-alt" iconSize="30" />
+               </graphic>
+            </Button>
+            <Button fx:id="settingsBtn" mnemonicParsing="false" onAction="#onChangePane" prefHeight="52.0" prefWidth="80.0" VBox.vgrow="NEVER">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="mdsmz-video_settings" iconSize="30" />
+               </graphic>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <VBox fx:id="rightVbox" prefHeight="820.0" prefWidth="32.0" style="-fx-background-color: black;">
+         <children>
+            <Button fx:id="mangaReadListBtn" mnemonicParsing="false" onAction="#onChangePane" prefHeight="52.0" prefWidth="80.0" VBox.vgrow="NEVER">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="far-bookmark" iconSize="30" />
+               </graphic>
+            </Button>
+            <Button fx:id="readerHomeBtn" mnemonicParsing="false" onAction="#onChangePane" prefHeight="55.0" prefWidth="80.0" VBox.vgrow="NEVER">
+               <graphic>
+                  <FontIcon iconColor="#f5f5f5" iconLiteral="fas-book-dead" iconSize="30" />
+               </graphic>
+            </Button>
+            <Button fx:id="readBtn" mnemonicParsing="false" onAction="#onChangePane" prefHeight="52.0" prefWidth="80.0" VBox.vgrow="NEVER">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fas-book-reader" iconSize="30" />
+               </graphic>
+            </Button>
+            <Button fx:id="mangaDownloadBtn" mnemonicParsing="false" onAction="#onChangePane" prefHeight="52.0" prefWidth="80.0" VBox.vgrow="NEVER">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fas-download" iconSize="30" />
+               </graphic>
+            </Button>
+            <Button fx:id="mangaSettingsBtn" mnemonicParsing="false" onAction="#onChangePane" prefHeight="52.0" prefWidth="80.0" VBox.vgrow="NEVER">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fas-cog" iconSize="30" />
+               </graphic>
+            </Button>
+         </children>
+      </VBox>
+   </right>
+   <center>
+      <AnchorPane fx:id="contentAnchorPane" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+<!--         <children>-->
+<!--            <fx:include fx:id="watchListPane" source="watch/list.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+<!--            <fx:include fx:id="homePane" source="watch/home.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+<!--            <fx:include fx:id="infoPane" source="watch/info.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+<!--            <fx:include fx:id="downloadPane" source="watch/download.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+<!--            <fx:include fx:id="videoPane" source="watch/mpv.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+<!--            <fx:include fx:id="settingsPane" source="watch/settings.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+<!--            <fx:include fx:id="readerHomePane" source="read/home.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+<!--            <fx:include fx:id="readPane" source="read/view.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+<!--         </children>-->
+      </AnchorPane>
+   </center>
+   <top>
+      <BorderPane fx:id="topAnchorPane" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <right>
+            <HBox>
+               <children>
+                  <Button fx:id="minimizeButton" minWidth="34.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <FontIcon iconColor="#2c1fcc" iconLiteral="fas-window-minimize" iconSize="16" text="" wrappingWidth="17.0" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="resizeButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <FontIcon iconColor="#1893e4" iconLiteral="fas-window-maximize" iconSize="20" wrappingWidth="17.0" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="closeAppButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <FontIcon iconColor="RED" iconLiteral="fas-window-close" iconSize="20" wrappingWidth="17.0" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+         </right>
+         <center>
+            <HBox prefHeight="32.0" prefWidth="807.0" spacing="5.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="LightDarkModeToggle" mnemonicParsing="false" prefHeight="40.0" prefWidth="45.0" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="far-moon" iconSize="20" wrappingWidth="28.0" />
+                     </graphic>
+                  </Button>
+                <Button fx:id="loadPlaylistBtn" mnemonicParsing="false" prefHeight="56.0" prefWidth="68.0" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="fas-folder-plus" iconSize="20" wrappingWidth="20.0" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="serversButton" mnemonicParsing="false" prefHeight="130.0" prefWidth="62.0" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="fas-server" iconSize="20" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="backwardsButton" mnemonicParsing="false" prefHeight="130.0" prefWidth="62.0" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="fas-backward" iconSize="20" />
+                     </graphic>
+                  </Button>
+                  <ToggleButton fx:id="playPauseButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="34.0" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="fas-play" iconSize="20" />
+                     </graphic>
+                  </ToggleButton>
+                  <Button fx:id="forwardButton" mnemonicParsing="false" prefHeight="130.0" prefWidth="62.0" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="fas-forward" iconSize="20" />
+                     </graphic>
+                  </Button>
+                  <Label fx:id="currentlyPlayingLabel" prefHeight="32.0" prefWidth="968.0" style="-fx-text-fill: white;" text="Currently Playing:" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Agency FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </center>
+      </BorderPane>
+   </top>
+</BorderPane>

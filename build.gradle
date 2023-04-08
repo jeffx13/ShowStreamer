@@ -1,0 +1,103 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.20'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'org.beryx.jlink' version '2.24.1'
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+
+}
+
+group 'com.showstreamer'
+version '1.0-SNAPSHOT'
+
+ext {
+    junitVersion = '5.9.0'
+}
+
+sourceCompatibility = '18'
+targetCompatibility = '18'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainModule = 'com.showstreamer'
+    mainClass = 'com.showstreamer.Main'
+}
+
+[compileKotlin, compileTestKotlin].forEach {
+    it.kotlinOptions {
+        jvmTarget = '18'
+    }
+}
+
+javafx {
+    version = '18.0.2'
+    modules = ['javafx.controls', 'javafx.fxml','javafx.graphics','javafx.swing']
+}
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
+        maven { url 'https://jitpack.io' }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+}
+
+dependencies {
+
+    implementation("commons-codec:commons-codec:1.15")
+    implementation('org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.4.0')
+    implementation('org.jsoup:jsoup:1.15.3')
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.squareup.okhttp3:okhttp-dnsoverhttps:4.10.0")
+    testImplementation ("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    implementation("org.mozilla:rhino:1.7.14")
+    implementation('com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4')
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation("org.json:json:20220320")
+    implementation("org.jfxtras:jmetro:11.6.15")
+    implementation("uk.co.caprica:vlcj-javafx:1.1.0")
+    implementation("net.java.dev.jna:jna:5.12.1")
+    implementation("org.controlsfx:controlsfx:11.1.1")
+    implementation("org.kordamp.ikonli:ikonli-javafx:12.3.1")
+    implementation("org.kordamp.ikonli:ikonli-fontawesome5-pack:12.3.1")
+    implementation("org.kordamp.ikonli:ikonli-material2-pack:12.3.1")
+    implementation files("C:\\Users\\Jeffx\\Downloads\\jogamp-fat.jar")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
+    implementation("org.openjdk.nashorn:nashorn-core:15.4")
+    implementation("app.cash.quickjs:quickjs-jvm:0.9.2")
+
+
+}
+
+
+test {
+    useJUnitPlatform()
+}
+
+jlink {
+    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'app'
+    }
+}
+
+
+jlinkZip {
+    group = 'distribution'
+}
+
+shadowJar {
+    archiveFileName = 'ShowStreamer.jar'
+    mergeServiceFiles()
+    manifest {
+        attributes(
+                'Main-Class': "com.showstreamer.Main"
+        )
+    }
+}

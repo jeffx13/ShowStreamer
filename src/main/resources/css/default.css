@@ -1,0 +1,851 @@
+.root {
+    /* Root variables */
+    accent_color: #0078d7;
+}
+/*******************************************************************************
+ *                                                                             *
+ * Button and ToggleButton                                                     *
+ *                                                                             *
+ ******************************************************************************/
+
+.button, .toggle-button {
+    -shrink-animate-on-press: true;
+}
+
+
+.button, .toggle-button {
+    -fx-border-color: transparent;
+    -fx-border-width: 2;
+
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-background-color: button_background_color;
+
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 1em; /* 12 */
+    -fx-text-fill: text_color;
+}
+
+.button:hover, .toggle-button:hover{
+    -fx-border-color: border_hover_color;
+}
+
+.button:pressed, .toggle-button:pressed
+{
+    -fx-border-color: background_pressed_color;
+    -fx-background-color: background_pressed_color;
+}
+
+/*.button:focused, .toggle-button:focused*/
+/*{*/
+/*    -fx-border-color: transparent, focus_ring_border_color;*/
+/*    -fx-border-width: 1, 1;*/
+/*    !*noinspection CssInvalidFunction*!*/
+/*    -fx-border-style: solid, segments(1, 2);*/
+/*    -fx-border-radius: 0, 0;*/
+/*    -fx-border-insets: 1 1 1 1, 0;*/
+/*}*/
+
+.button:disabled, .button:default:disabled, .toggle-button:disabled
+{
+    -fx-opacity: 0.4;
+    -fx-background-color: button_background_color;
+    -fx-text-fill: text_color;
+}
+
+/****************************** Button ****************************************/
+
+/* We must use the actual Button class instead of the "button" styleclass because ColorPicker also uses
+that styleclass but isn't an actual button
+*/
+Button {
+    -fx-skin: "impl.jfxtras.styles.jmetro.FluentButtonSkin";
+}
+
+.button:default
+{
+    -fx-background-color: accent_color;
+    -fx-text-fill: default_button_text_color;
+}
+
+.button:default:hover{
+    -fx-border-color: border_hover_default_color;
+}
+
+.button:default:pressed {
+    -fx-background-color: derive(accent_color, -40%);
+}
+
+/**************************** Toggle Button ***********************************/
+
+.toggle-button {
+    -fx-skin: "impl.jfxtras.styles.jmetro.FluentToggleButtonSkin";
+}
+
+.toggle-button:selected {
+    -fx-background-color: accent_color;
+    -fx-text-fill: white;
+}
+
+.toggle-button:selected:hover {
+    -fx-border-color: border_hover_selected_color;
+}
+
+.toggle-button:selected:pressed {
+    -fx-background-color: derive(accent_color, -40%);
+}
+.button, .toggle-button {
+    button_background_color: #333333;
+    background_pressed_color: #666666;
+
+    border_hover_color: #858585;
+
+    text_color: white;
+    default_button_text_color: white;
+
+    focus_ring_border_color: white;
+}
+
+.button {
+    border_hover_default_color: derive(accent_color, 70%);
+}
+
+.toggle-button {
+    border_hover_selected_color: derive(accent_color, 70%);
+}
+
+
+
+
+
+.spinner {
+    spinner_background_color: #000000;
+    spinner_border_color: #444;
+
+    arrow_button_hover_color: #333;
+    arrow_button_pressed_color: #222;
+
+    arrow_color: #999;
+    arrow_pressed_color: #999;
+}
+
+.spinner > .text-field {
+    text_color: #002aff;
+}
+.spinner {
+    -fx-background-color: spinner_background_color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+
+    -fx-border-color: spinner_border_color;
+    -fx-border-width: 1px;
+}
+
+.spinner > .text-field {
+    -fx-background-color: spinner_background_color;
+    -fx-text-fill:white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+/* TODO: Below doesn't work when spinner is in SPLIT_ARROWS_HORIZONTAL and is not focused
+   however it works if you are running with Scenic View attached. Should be a bug in JavaFX 8.
+ */
+.spinner:focused > .text-field,
+.spinner:contains-focus > .text-field,
+.spinner > .text-field,
+.spinner.split-arrows-horizontal > .text-field {
+    -fx-text-fill:white;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button  {
+    -fx-background-color: spinner_background_color;
+    -fx-text-fill:white;
+    /*Change the two 0's here to -1 to get rid of the horizontal line */
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    -fx-background-color: arrow_button_hover_color;
+}
+
+.spinner .increment-arrow-button:pressed,
+.spinner .decrement-arrow-button:pressed {
+    -fx-background-color: arrow_button_pressed_color;
+}
+
+.spinner .increment-arrow-button .increment-arrow,
+.spinner .decrement-arrow-button .decrement-arrow {
+    -fx-background-color: arrow_color;
+}
+
+.spinner .increment-arrow-button:pressed .increment-arrow,
+.spinner .decrement-arrow-button:pressed .decrement-arrow{
+    -fx-background-color: arrow_pressed_color;
+}
+
+/****** Spinner - STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL ******/
+
+/* Increment button is slightly misplaced for some reason */
+.spinner.split-arrows-horizontal .increment-arrow-button {
+    -fx-translate-x: 1;
+}
+
+/****** Spinner - STYLE_CLASS_SPLIT_ARROWS_VERTICAL ******/
+
+/* Decrement button is slightly misplaced for some reason */
+.spinner.split-arrows-vertical .decrement-arrow-button {
+    -fx-translate-y: 1;
+}
+/*******************************************************************************
+ *                                                                             *
+ * Progress Bar                                                                *
+ *                                                                             *
+ ******************************************************************************/
+.progress-bar {
+    progress_background_color: #333;
+}
+
+.progress-bar {
+    track_background_color: progress_background_color;
+    bar_color: accent_color;
+    dot_color: accent_color;
+}
+
+/*.progress-bar {*/
+/*    -fx-skin: "impl.jfxtras.styles.jmetro.ProgressBarSkin";*/
+/*}*/
+
+.progress-bar > .bar {
+    -fx-background-color: bar_color;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+}
+
+.progress-bar > .track {
+    -fx-background-color: track_background_color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+
+    -fx-pref-height: 4px;
+    -fx-min-height: 4px;
+    -fx-max-height: 4px;
+}
+
+/* Indeterminate */
+.progress-bar:indeterminate > .track {
+    -fx-background-color: transparent;
+}
+
+.progress-bar:indeterminate .dot {
+    -fx-background-radius: 1em;
+    -fx-padding: 0.166667em;
+
+    -fx-background-color: dot_color;
+}
+/*******************************************************************************
+ *                                                                             *
+ * List View                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+.list-view {
+    -fx-background-color: list_view_background_color;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+
+    -fx-border-color: border_color;
+    -fx-border-width: 1px;
+
+    -fx-font-size: 1em; /* 12 */
+}
+
+.list-view:focused {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+.list-view {
+    text_color: white;
+
+    alternate_row_color: #3c3c3c;
+
+    list_view_background_color: #333;
+    border_color: #171717;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Combo Box                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+.menu-button,
+.choice-box,
+.combo-box-base,
+.split-menu-button {
+    arrow_color: white;
+}
+.combo-box-base {
+    text_color: white;
+
+    /* border */
+    border_color: #666666;
+    border_hover_color: #999999;
+    border_focused_color: white;
+    border_pressed_color: #666666;
+
+    /* background */
+    combo_box_background_color: #111;
+    background_pressed_color: #333333;
+
+    /* editable */
+    combo_box_editable_button_hover_color: #444;
+    combo_box_editable_focused_button_hover_color: #e6e6e6;
+    combo_box_editable_focused_background_color: white;
+    combo_box_editable_focused_arrow_color: #111;
+}
+
+.combo-box-popup {
+    list_cell_color: #2b2b2b;
+    list_cell_hover_color: #545454;
+
+    list_cell_border_color: #767676;
+}
+.combo-box-base  {
+    -fx-background-color: transparent, border_color, transparent, combo_box_background_color;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-padding: 0.166667em 0.166667em 0.166667em 0.166667em; /* 2 2px 2 2px*/
+
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 1em; /* 12 */
+}
+
+.combo-box-base > .list-cell {
+    -fx-text-fill: text_color;
+}
+
+.combo-box-base:hover {
+    -fx-background-color: transparent, border_hover_color, transparent, combo_box_background_color;
+}
+
+.combo-box-base:focused {
+    -fx-background-color: transparent, border_focused_color, transparent, combo_box_background_color;
+    -fx-background-insets: -1.4, 0, 1, 2;
+
+    -fx-background-radius: 0, 0, 0, 0;
+}
+
+.combo-box-base:focused:hover {
+    -fx-background-color: transparent, border_hover_color, transparent, combo_box_background_color;
+}
+
+.combo-box-base:pressed,
+.combo-box-base:focused:pressed,
+.combo-box-base:showing,
+.combo-box-base:showing:hover,
+.combo-box-base:editable:showing {
+    -fx-background-color: transparent, border_pressed_color, transparent, background_pressed_color;
+}
+
+.combo-box-base:disabled {
+    -fx-opacity: .4;
+}
+
+/* ------- OPEN BUTTON ------- */
+.combo-box-base > .arrow-button {
+    -fx-background-color: transparent, transparent, transparent;
+}
+
+/* Add more space to the inside right part of a ComboBox so that more text fits inside */
+.combo-box-base.combo-box > .arrow-button {
+    -fx-padding: 0.5em 0.667em 0.5em 0em; /* 6 8 6 0 */
+}
+
+/* ------- ARROW ------- */
+.combo-box-base > .arrow-button > .arrow {
+    -fx-background-insets: 0 0 0 0, 0;
+}
+
+/* LIST (Popup)*/
+.combo-box-popup > .list-view {
+    -fx-effect: null;
+
+    -fx-border-color: list_cell_border_color;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 1em;
+    -fx-padding: 0.333333em 0 0.333333em 0.416667em; /* 4 0 4 5 */
+
+    -fx-background-color: list_cell_color;
+
+    -fx-text-fill: text_color;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:hover{
+    -fx-background-color: cell_hover_color;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:pressed{
+    -fx-background-color: cell_pressed_color;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected{
+    -fx-background-color: cell_selected_color;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected:hover{
+    -fx-background-color: cell_selected_hover_color;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected:pressed{
+    -fx-background-color: cell_selected_pressed_color;
+}
+
+/*==========================  Editable ComboBox  =============================*/
+
+.combo-box-base.combo-box:editable > .text-input {
+    -fx-skin: "javafx.scene.control.skin.TextFieldSkin"
+}
+
+.combo-box-base.combo-box:editable > .text-input {
+    -fx-background-color: transparent, transparent;
+}
+
+/*===== Arrow Button =====*/
+.combo-box-base.combo-box:editable > .arrow-button {
+    -fx-background-insets: 0 0 0 -8;
+    -fx-background-radius: 0;
+}
+.combo-box-base.combo-box:editable > .arrow-button:hover {
+    -fx-background-color: combo_box_editable_button_hover_color;
+}
+
+/*====== Focused =======*/
+.combo-box-base.combo-box:editable:focused {
+    -fx-background-color: transparent, accent_color, transparent, combo_box_editable_focused_background_color;
+}
+
+/* - Arrow Button */
+.combo-box-base.combo-box:editable:focused > .arrow-button > .arrow {
+    -fx-background-color: combo_box_editable_focused_arrow_color;
+}
+
+.combo-box-base.combo-box:editable:focused > .arrow-button:hover {
+    -fx-background-color: combo_box_editable_focused_button_hover_color;
+}
+.combo-box-popup {
+    cell_hover_color: #515151;
+    cell_pressed_color: #3e3e3e;
+
+    cell_selected_unfocused_color: cell_hover_color;
+
+    cell_selected_color: derive(accent_color, -35%);
+    cell_selected_hover_color: derive(accent_color, -20%);
+    cell_selected_pressed_color: derive(accent_color, 60%);
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Text Common (TextField, PasswordField, TextArea)                            *
+ *                                                                             *
+ ******************************************************************************/
+
+.text-input {
+    -fx-background-radius: 0, 0;
+
+    -fx-background-color: border_color, text_input_background_color;
+    -fx-background-insets: 0, 2;
+
+    -fx-prompt-text-fill: prompt_text_color;
+
+    -fx-highlight-fill: highlight_color;
+    -fx-highlight-text-fill: highlighted_text_color;
+
+    -fx-font-size: 1em; /* 12 */
+
+    -fx-text-fill: text_color;
+}
+
+.text-input.text-field > Pane,
+.text-input.password-field > Pane {
+    -fx-background-color: transparent;
+}
+
+/* hover */
+.text-input:hover {
+    -fx-background-color: border_hover_color, background_hover_color;
+}
+
+/* focused */
+.text-input:focused {
+    -fx-background-color: accent_color, background_focused_color;
+
+    -fx-text-fill: text_focused_color;
+}
+
+/* disabled */
+.text-input:disabled {
+    -fx-opacity: 1;
+    -fx-background-insets: 0, 2;
+    -fx-background-color: border_disabled_color, background_disabled_color;
+    -fx-text-fill: text_disabled_color;
+    -fx-prompt-text-fill: text_disabled_color;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Text Field (and PasswordField)                                              *
+ *                                                                             *
+ ******************************************************************************/
+
+/* Issue #149: Need to use TextField because ColorPicker has custom textfields with "text-field" styleclass that aren't actually of type
+   TextField which will cause an IllegalArgumentException when creating the impl.jfxtras.styles.jmetro.TextFieldSkin object and passing it,
+   for instance, the WebColorField */
+TextField {
+    -fx-skin: "impl.jfxtras.styles.jmetro.TextFieldSkin";
+
+    -right-button-visible: true;
+}
+
+.text-field > .right-button > .right-button-graphic {
+    -fx-shape: "M221.738,305.873l6.135,6.16l-2.875,2.863l-6.135-6.159l-6.263,6.237l-2.864-2.875l6.263-6.238l-6.177-6.202l2.875-2.863l6.177,6.201l6.244-6.22l2.864,2.876L221.738,305.873z";
+
+    -fx-padding: 0.416667em;
+    -fx-background-color: graphic_color;
+}
+
+.text-field > .right-button {
+    -fx-cursor: default;
+
+    -fx-background-insets: -0.1666665em -0.45em -0.1666665em -0.45em; /* 4 7 4 7 -> this values are subtracted by 2px in em because of the border of the textfield */
+    -fx-background-color: background_focused_color;  /* We must give it a color so that it reacts to the mouse */
+}
+
+.text-field > .right-button:hover > .right-button-graphic {
+    -fx-background-color: accent_color;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Password Field                                                              *
+ *                                                                             *
+ ******************************************************************************/
+
+.password-field {
+    -fx-skin: "impl.jfxtras.styles.jmetro.PasswordFieldSkin";
+
+    -right-button-visible: true;
+}
+
+.password-field > .right-button {
+    -fx-padding: 0 0.166667em 0 0.166667em;
+}
+
+.password-field > .right-button > .right-button-graphic {
+    -fx-shape            : "M307.688,399.564c0,1.484-1.203,2.688-2.688,2.688c-1.484,0-2.688-1.203-2.688-2.688s1.203-2.688,2.688-2.688C306.484,396.876,307.688,398.08,307.688,399.564z M297.5,399h2.5c0,0,1.063-4,5-4c3.688,0,5,4,5,4h2.5c0,0-2.063-6.5-7.5-6.5C299,392.5,297.5,399,297.5,399z";
+    -fx-scale-shape: false;
+    -fx-background-color: #111;
+}
+
+.password-field > .right-button:pressed {
+    -fx-background-color: accent_color;
+}
+
+.password-field > .right-button:pressed > .right-button-graphic {
+    -fx-background-color: white;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Text Area                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+
+.text-area .content {
+    -fx-background-color: border_color, text_input_background_color;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0, 1;
+}
+
+.text-area:hover .content {
+    -fx-background-color: border_color, background_hover_color;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0, 1;
+}
+
+.text-area:focused .content {
+    -fx-background-color: accent_color, background_focused_color;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0, 1;
+}
+
+.text-area:disabled .content {
+    -fx-background-color: border_disabled_color, background_disabled_color;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0, 1;
+}
+
+/* TODO: below not working */
+.text-area:disabled .content .text {
+    -fx-fill: text_disabled_color;
+}
+.label {
+    text_color: white;
+}
+
+Text {
+    text_color: white;
+}
+.text-input {
+    border_color: #666;
+    border_hover_color: #999;
+    border_disabled_color: #333;
+
+    text_input_background_color: #111;
+    background_focused_color: #fff;
+    background_hover_color: #111;
+    background_disabled_color: #111;
+
+    text_color: white;
+    text_focused_color: #111;
+    text_disabled_color: #333;
+    prompt_text_color: #777;
+
+    highlight_color: accent_color;
+    highlighted_text_color: white;
+
+    graphic_color: #747474;
+}
+.scroll-bar > .thumb{
+    -fx-background-color: thumb_color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.scroll-bar > .thumb:hover {
+    -fx-background-color: thumb_hover_color;
+}
+
+.scroll-bar > .thumb:pressed {
+    -fx-background-color: thumb_pressed_color;
+}
+
+.scroll-bar > .track {
+    -fx-background-color: track_color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+.scroll-bar > .track-background {
+    -fx-background-insets: 0;
+}
+
+/* Buttons */
+.scroll-bar > .increment-button,
+.scroll-bar > .decrement-button {
+    -fx-background-color: inc_dec_button_color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+
+    -fx-padding: 0.5em 0.25em 0.5em 0.25em; /* 6 3 6 3*/
+}
+
+.scroll-bar:horizontal > .increment-button,
+.scroll-bar:horizontal > .decrement-button {
+    -fx-padding: 0.25em 0.5em 0.25em 0.5em ; /* 3 6 3 6*/
+}
+
+.scroll-bar > .increment-button:hover,
+.scroll-bar > .decrement-button:hover  {
+    -fx-background-color: inc_dec_button_hover_color;
+}
+
+.scroll-bar > .increment-button:pressed,
+.scroll-bar > .decrement-button:pressed {
+    -fx-background-color: inc_dec_button_pressed_color;
+}
+
+/* Disabled */
+.scroll-bar:disabled {
+    -fx-opacity: 0.4;
+}
+
+/* ARROW SHAPES */
+.scroll-bar:horizontal > .increment-button > .increment-arrow {
+    -fx-shape: "M14.4,18.611l3.633-3.637L14.4,11.338l0.352-0.352l3.992,3.988 l-3.992,3.988L14.4,18.611z";
+}
+
+.scroll-bar:horizontal > .decrement-button > .decrement-arrow {
+    -fx-shape: "M18.393,18.963L14.4,14.975l3.992-3.988l0.352,0.352l-3.633,3.637 l3.633,3.637L18.393,18.963z";
+}
+
+.scroll-bar:vertical > .increment-button > .increment-arrow {
+    -fx-shape: "M20.561,13.154l-3.988,3.992l-3.988-3.992l0.352-0.352 l3.637,3.633l3.637-3.633L20.561,13.154z";
+}
+
+.scroll-bar:vertical > .decrement-button > .decrement-arrow {
+    -fx-shape: "M20.209,17.146l-3.637-3.633l-3.637,3.633l-0.352-0.352 l3.988-3.992l3.988,3.992L20.209,17.146z";
+}
+
+.scroll-bar > .decrement-button:pressed > .decrement-arrow,
+.scroll-bar > .increment-button:pressed > .increment-arrow {
+    -fx-background-color: transparent, white;
+    -fx-effect: null;
+}
+
+.scroll-bar:vertical > .increment-button > .increment-arrow,
+.scroll-bar:vertical > .decrement-button > .decrement-arrow {
+    -fx-padding: 0.208333em 0.333333em 0.208333em 0.333333em; /* 2.5 4 2.5 4*/
+}
+
+.scroll-bar:horizontal > .increment-button > .increment-arrow,
+.scroll-bar:horizontal > .decrement-button > .decrement-arrow {
+    -fx-padding: 0.333333em 0.208333em 0.333333em 0.208333em; /* 4 2.5 4 2.5 */
+    -fx-translate-y: -1; /* HACK:  Somehow the arrow is not centered so we add this to center it */
+}
+
+.scroll-bar > .decrement-button > .decrement-arrow,
+.scroll-bar > .increment-button > .increment-arrow{
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-background-color: arrow_color;
+    -fx-effect: null;
+}
+
+.scroll-bar > .increment-button:pressed > .increment-arrow,
+.scroll-bar > .decrement-button:pressed > .decrement-arrow {
+    -fx-background-color: arrow_pressed_color;
+}
+
+/**************************** Scroll Pane *************************************/
+
+.scroll-pane {
+    -fx-background-color: transparent, transparent;
+}
+
+.scroll-pane .corner {
+    -fx-background-radius: 0 0 0 0;
+    -fx-background-color: corner_background_color;
+    -fx-background-insets: 0 0 0 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: scroll_pane_background_color;
+}
+
+/* Corner of "ScrollPane" when in a VirtualFlow (it's not exactly a ScrollPane but has the same appearance) */
+.list-view > .virtual-flow > .corner,
+.tree-view > .virtual-flow > .corner,
+.table-view > .virtual-flow > .corner,
+.tree-table-view > .virtual-flow > .corner {
+    -fx-background-color: corner_background_color;
+}
+.scroll-bar {
+    thumb_color: #52565a;
+    thumb_hover_color: #7d8183;
+    thumb_pressed_color: #a9abad;
+
+    track_color: #29292a;
+
+    inc_dec_button_color: #2a2d30;
+    inc_dec_button_hover_color: #3c4145;
+    inc_dec_button_pressed_color: #a8abac;
+
+    arrow_color: white;
+    arrow_pressed_color: #111;
+}
+
+.scroll-pane {
+    corner_background_color: #29292a;
+    background_color: #252525;
+    scroll_pane_background_color: background_color;
+}
+
+.list-view > .virtual-flow > .corner,
+.tree-view > .virtual-flow > .corner,
+.table-view > .virtual-flow > .corner,
+.tree-table-view > .virtual-flow > .corner {
+    corner_background_color: #29292a;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Text Common (TextField, PasswordField, TextArea)                            *
+ *                                                                             *
+ ******************************************************************************/
+
+.text-input {
+    -fx-background-radius: 0, 0;
+
+    -fx-background-color: border_color, text_input_background_color;
+    -fx-background-insets: 0, 2;
+
+    -fx-prompt-text-fill: prompt_text_color;
+
+    -fx-highlight-fill: highlight_color;
+    -fx-highlight-text-fill: highlighted_text_color;
+
+    -fx-font-size: 1em; /* 12 */
+
+    -fx-text-fill: text_color;
+}
+
+.text-input.text-field > Pane,
+.text-input.password-field > Pane {
+    -fx-background-color: transparent;
+}
+
+/* hover */
+.text-input:hover {
+    -fx-background-color: border_hover_color, background_hover_color;
+}
+
+/* focused */
+.text-input:focused {
+    -fx-background-color: accent_color, background_focused_color;
+
+    -fx-text-fill: text_focused_color;
+}
+
+/* disabled */
+.text-input:disabled {
+    -fx-opacity: 1;
+    -fx-background-insets: 0, 2;
+    -fx-background-color: border_disabled_color, background_disabled_color;
+    -fx-text-fill: text_disabled_color;
+    -fx-prompt-text-fill: text_disabled_color;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Text Field (and PasswordField)                                              *
+ *                                                                             *
+ ******************************************************************************/
+
+/* Issue #149: Need to use TextField because ColorPicker has custom textfields with "text-field" styleclass that aren't actually of type
+   TextField which will cause an IllegalArgumentException when creating the impl.jfxtras.styles.jmetro.TextFieldSkin object and passing it,
+   for instance, the WebColorField */
+TextField {
+    -fx-skin: "impl.jfxtras.styles.jmetro.TextFieldSkin";
+
+    -right-button-visible: true;
+}
+
+.text-field > .right-button > .right-button-graphic {
+    -fx-shape: "M221.738,305.873l6.135,6.16l-2.875,2.863l-6.135-6.159l-6.263,6.237l-2.864-2.875l6.263-6.238l-6.177-6.202l2.875-2.863l6.177,6.201l6.244-6.22l2.864,2.876L221.738,305.873z";
+
+    -fx-padding: 0.416667em;
+    -fx-background-color: graphic_color;
+}
+
+.text-field > .right-button {
+    -fx-cursor: default;
+
+    -fx-background-insets: -0.1666665em -0.45em -0.1666665em -0.45em; /* 4 7 4 7 -> this values are subtracted by 2px in em because of the border of the textfield */
+    -fx-background-color: background_focused_color;  /* We must give it a color so that it reacts to the mouse */
+}
+
+.text-field > .right-button:hover > .right-button-graphic {
+    -fx-background-color: accent_color;
+}

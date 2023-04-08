@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane prefHeight="606.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.showstreamer.controllers.HomeController">
+   <top>
+      <ListView fx:id="bannerListView" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="181.0" prefWidth="807.0" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <ScrollPane prefHeight="447.0" prefWidth="807.0" BorderPane.alignment="CENTER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+   </center>
+</BorderPane>
